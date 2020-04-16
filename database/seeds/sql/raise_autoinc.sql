@@ -1,0 +1,8 @@
+ALTER SEQUENCE users_id_seq RESTART WITH 1001;
+ALTER SEQUENCE addresses_id_seq RESTART WITH 1001;
+ALTER SEQUENCE account_levels_id_seq RESTART WITH 10;
+ALTER SEQUENCE contacts_id_seq RESTART WITH 1001;
+ALTER SEQUENCE accounts_id_seq RESTART WITH 1001;
+ALTER SEQUENCE communication_types_id_seq RESTART WITH 10;
+ALTER SEQUENCE communications_id_seq RESTART WITH 1001;
+ALTER SEQUENCE account_addresses_id_seq RESTART WITH 1001;

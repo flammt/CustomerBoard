@@ -1,0 +1,52 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "title": "Basic KBDB response",
+  "type": "object",
+  "required": ["version", "status"],
+  "properties": {
+    "version": {
+      "type": "string",
+      "description": ""
+    },
+    "user": {
+      "type": "object",
+      "description": "The currently authenticated user",
+      "required": [ "email" ],
+      "properties": {
+        "email": {
+          "type": "string",
+          "description": "The email of the user",
+          "format": "email"
+        }
+      }
+    },
+    "status": {
+      "type": "object",
+      "description": "Return status of request",
+      "required": [ "code" ],
+      "properties": {
+        "code": {
+          "type": "number",
+          "description": "A numerical code indicating the status of the response"
+        },
+        "message": {
+          "type": "string",
+          "description": "A textual representation of the response"
+        }
+      }
+    },
+    "result": {
+      "type": "object",
+      "description": "Case by case",
+      "propterties": {
+        "success": {
+          "type": "boolean",
+          "description": "Was the operation a success?"
+        },
+        "data": {
+          "description": "The result of the operation"
+        },
+      }
+    }
+  }
+}

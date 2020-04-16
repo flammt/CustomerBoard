@@ -1,0 +1,82 @@
+@use 'base'
+@use 'theme-nicotine' as theme
+
+body
+  font-family: base.$font1
+  background-color: base.$color1
+  color: base.$body-text-color
+  margin: auto
+  padding: 10px
+
+a:link
+  color: base.$body-text-color
+  text-decoration: none
+a:visited
+  color: base.$link-visited-color
+a:hover
+  color: base.$link-hover-color
+a:active
+  color: base.$link-active-color
+
+
+// either head, nav or content section
+#app>.section-floater
+  box-shadow: base.$shadow1
+  border-radius: base.$border-radius1
+  border: base.$border1
+  background: base.$panel1-background-gradient
+  background-size: theme.$background-gradient-size
+
+// the title directly belonging to a main menu entry
+.section-floater h3
+  margin: 10px 0 15px 0
+  padding: 0
+
+.content-floater
+  background-color: theme.$content-background-color
+  padding: theme.$content-padding
+  box-shadow: theme.$content-box-shadow
+  border-radius: theme.$content-border-radius
+  border: theme.$content-border
+
+.content-floater>h4
+  margin: 0 0 5px 0
+  padding: 0
+
+.content-floater>input
+  width: 100%
+
+.content-floater h5
+  margin: 5px 0 5px 0
+  padding: 3px 5px 3px 5px
+
+.list-row
+  background-color: rgb(229, 245, 255)
+  border-radius: 3px
+
+.form-row
+  background-color: theme.$sky-blue
+  border-radius: 0px
+
+.button
+  padding: 4px 16px
+  text-align: center
+  font-size: 14px
+  font-weight: bold
+  margin: 5px 0px 0px 0px
+  cursor: pointer
+
+.green-button
+  background-color: white
+  color: black
+  border: 2px solid theme.$button-green
+
+.green-button:hover
+  background-color: theme.$button-green
+  color: white
+
+input[type=text], input[type=date], input[type=checkbox], textarea
+  background-color: theme.$input-sand
+
+select
+  background-color: theme.$input-sand
