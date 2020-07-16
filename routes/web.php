@@ -40,7 +40,7 @@ Route::get('json/account/sectors', 'AccountController@sectors')->middleware('aut
 Route::get('json/account/{id}', 'AccountController@show')->middleware('auth');
 Route::post('json/account', 'AccountController@store')->middleware('auth');
 Route::put('json/account/{id}', 'AccountController@update')->middleware('auth');
-Route::get('json/account/nextContacts/{date}/{id?}/{page?}', 'AccountController@byNextContactDateAndUser')->middleware('auth');
+Route::get('json/account/nextContacts/{date}/{openContacts}/{id?}', 'AccountController@byNextContactDateAndUser')->middleware('auth');
 
 Route::post('json/communication', 'CommunicationController@store')->middleware('auth');
 Route::put('json/communication', 'CommunicationController@update')->middleware('auth');

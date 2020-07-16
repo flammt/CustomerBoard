@@ -10,6 +10,7 @@ use App\Model\AddressType;
 use App\Model\Contact;
 use App\Model\Sector;
 use App\Model\User;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Query\Builder;
@@ -32,49 +33,75 @@ class AccountController extends Controller
 
     /**
      * Get accounts with past next_contact date
-     * @param $date string date in the past
+     * @param $date string date until
+     * @param $openContacts get open or done contacts
      * @param $userId User account manager
      * @return \Illuminate\Http\JsonResponse
      */
-    public function byNextContactDateAndUser ($date, $userId = null, $page = 1) {
+    public function byNextContactDateAndUser ($date, $openContacts, $userId = null) {
         $response = new JsonResponse(Auth::user());
         $accounts = null;
-        $query = "
-select * from (
-select Distinct On (a.id)
-a.id,
+        $openContacts = $openContacts === 'true';
+        $query = "select * from ( ";
+        if($openContacts) {
+            $query .= "select Distinct On (a.id) ";
+        } else {
+            $query .= "select ";
+            // communications from today:
+            $date = Carbon::parse($date)->addDay();
+        }
+$query .= "a.id,
 a.next_contact,
 u.firstname,
 u.lastname,
+c.id as communication_id,
 c.created_at,
+c.date as communication_date,
 c.memo,
+ct.name as type_name,
+con.firstname as contact_firstname,
+con.lastname as contact_lastname,
 ad.country_code,
 ad.name1,
 ad.street,
 ad.town,
 ad.zip
 from accounts a
-left join communications c on a.id = c.account_id 
+left join communications c on a.id = c.account_id
+left join communication_types ct on ct.id = c.communication_type_id
+left join contacts con on c.contact_id = con.id
 left join users u on u.id = a.account_manager_id
 left join account_addresses aa on aa.account_id = a.id
 left join addresses ad on ad.id = aa.address_id
-left join address_types at on at.\"name\" = 'Hauptadresse'
-where a.next_contact < ?
-";
+left join address_types at on at.\"name\" = 'Hauptadresse' ";
+        if($openContacts) {
+            $query .= "where a.next_contact < ? ";
+        } else {
+            $query .= "where c.created_at < ? ";
+        }
         if (!empty($userId)) {
             $query .= "and u.id = ? ";
             $query .= "
 order by a.id, c.created_at desc, c.id desc
-) as offene_nc
-order by offene_nc.next_contact desc";
+) as offene_nc ";
+            if($openContacts) {
+                $query .= "order by offene_nc.next_contact desc";
+            } else {
+                $query .= "order by offene_nc.created_at desc";
+            }
             $accounts = collect(DB::select($query, [$date, $userId]))->chunk(10);
         } else {
             $query .= "
 order by a.id, c.created_at desc, c.id desc
-) as offene_nc
-order by offene_nc.next_contact desc";
+) as offene_nc ";
+            if($openContacts) {
+                $query .= "order by offene_nc.next_contact desc";
+            } else {
+                $query .= "order by offene_nc.created_at desc";
+            }
             $accounts = collect(DB::select($query, [$date]))->chunk(10);
         }
+        Log::info($query);
         // performance
 //        $accounts = Account::with([
 //            'accountManager',
