@@ -1,6 +1,6 @@
 <template>
     <div id="form" class="content-floater" :style="'max-height: '+height+'px;overflow-y: auto'">
-        <NextContact v-for="account in pageAccounts" :key="account.id" :model="account" @dateChanged="$emit('dateChanged', $event)"></NextContact>
+        <NextContact v-for="account in pageAccounts" :key="account.communication_id" :model="account" @dateChanged="$emit('dateChanged', $event)"></NextContact>
     </div>
 </template>
 

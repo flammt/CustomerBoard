@@ -2,6 +2,9 @@
     <div class="panel">
         <div style="display:flex;justify-content: space-between">
             <PanelHeader><router-link :to="'/browseAccounts/account/'+model.id">{{accountCaption}}</router-link></PanelHeader>
+            <PanelHeader>{{model.type_name}}</PanelHeader>
+            <PanelHeader>mit {{model.contact_lastname}}, {{model.contact_firstname}}</PanelHeader>
+            <PanelHeader>am {{createdDate}}</PanelHeader>
             <input style="margin:10px 0 10px 0" type="date" :value="nextContactDate" @change="dateChanged($event.target.value)" @blur="focusLost" @keydown="keyPressed($event.target, $event.keyCode)">
         </div>
         <div style="display:flex;justify-content: space-evenly">
@@ -56,6 +59,9 @@
         computed: {
             nextContactDate () {
                 return DateFormat.cutTime(this.model.next_contact)
+            },
+            createdDate () {
+                return DateFormat.getGermanDateTime(this.model.created_at)
             },
             accountCaption () {
                 return Utils.notEmptyConcatReplace([this.model.name1, ' ', this.model.street, ' ', this.model.country_code, ' ', this.model.zip, ' ', this.model.town],

@@ -7,7 +7,7 @@
             <h4 class="nav-item">Bericht erstellen</h4>
         </router-link>
         <router-link to="/nextContacts">
-            <h4 class="nav-item">Offene Kontakttermine</h4>
+            <h4 class="nav-item">Kontakte</h4>
         </router-link>
         <router-link to="/manageUsers">
             <h4 class="nav-item">Benutzer</h4>

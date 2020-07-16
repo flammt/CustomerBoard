@@ -1,17 +1,25 @@
 <template>
     <div>
-        <h3>Offene Kontakttermine</h3>
+        <h3>Kontakte</h3>
         <div id="next-contacts">
             <div id="search" class="content-floater">
                 <div>
                     <TextRow>Kundenmanager</TextRow>
                     <UserInputCombobox :placeholder="accountManagerName" @userSelected="userSelected"></UserInputCombobox>
                     <div style="padding:5px"></div>
-                    <TextRow>Alle Kundenmanager</TextRow>
-                    <input type="checkbox" @change="selectAllUser($event.target.checked)">
-                    <div style="padding:5px"></div>
                     <TextRow>Termine bis</TextRow>
                     <input style="width:100%" type="date" :value="dateUntil" @change="dateUntilChanged($event.target.value)">
+                    <div style="padding:5px"></div>
+                    <TextRow>Kundenmanager</TextRow>
+                    <input id="allUsers" type="checkbox" @change="selectAllUsers($event.target.checked)">
+                    <label for="allUsers">Alle</label>
+                    <div style="padding:5px"></div>
+                    <TextRow>Anzeige</TextRow>
+                    <input id="openContacts" type="checkbox" :checked="openContacts" @change="selectOpenContacts($event.target.checked)">
+                    <label for="openContacts">Offene Kontakte</label>
+                    <div style="padding:5px"></div>
+                    <input id="doneContacts" type="checkbox" :checked="!openContacts" @change="selectDoneContacts($event.target.checked)">
+                    <label for="doneContacts">Erledigte Kontakte</label>
                     <div style="padding:8px"></div>
                     <TextRow>Seiten</TextRow>
                     <Paginator :data="accounts" :page="currentPage" @backward="backward" @forward="forward"></Paginator>
@@ -31,10 +39,12 @@
     import DateFormat from "../DateFormat";
     import Utils from "../Utils";
     import Paginator from "./bricks/Paginator";
+    import FormCheckboxRow from "./bricks/FormCheckboxRow";
 
     export default {
         name: "NextContacts",
         components: {
+            FormCheckboxRow,
             Paginator,
             NextContact,
             TextRow,
@@ -49,7 +59,8 @@
                 dateUntil: DateFormat.getNativeInput(moment().subtract(1, 'week')),
                 accounts: null,
                 service: new ServiceRequest(),
-                allUser: false,
+                allUsers: false,
+                openContacts: true,
                 currentPage: null,
             }
         },
@@ -77,8 +88,16 @@
                 this.dateUntil = value;
                 this.load();
             },
-            selectAllUser (value) {
-                this.allUser = value;
+            selectAllUsers (value) {
+                this.allUsers = value;
+                this.load();
+            },
+            selectOpenContacts (value) {
+                this.openContacts = value;
+                this.load();
+            },
+            selectDoneContacts (value) {
+                this.openContacts = !value;
                 this.load();
             },
             userSelected (user) {
@@ -88,8 +107,8 @@
                 }
             },
             load () {
-                const userId = this.allUser ? '' : this.accountManager.id;
-                this.service.url = "json/account/nextContacts/"+this.dateUntil+'/'+userId;
+                const userId = this.allUsers ? '' : this.accountManager.id;
+                this.service.url = "json/account/nextContacts/"+this.dateUntil+'/'+this.openContacts+'/'+userId;
                 this.service.doGet((error, data) => {
                     if (error) {
                         console.error('Loading Next Contacts failed: ' + data);
@@ -98,7 +117,7 @@
                     }
                 });
                 this.currentPage = 1
-                this.$router.push('/nextContacts/'+1)
+                this.$router.push('/nextContacts/'+1).catch(err => {})
             },
             authUser () {
                 this.service.url = "json/user/auth";
@@ -127,6 +146,9 @@
 </script>
 
 <style scoped>
+    label {
+        color: #fffef6;
+    }
     #next-contacts {
         display: grid;
         grid-template-columns: 1fr 5fr;
