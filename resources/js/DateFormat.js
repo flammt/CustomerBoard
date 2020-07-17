@@ -39,6 +39,15 @@ class DateFormat {
         return moment(date).format('DD.MM.YYYY H:mm:ss');
     }
 
+    /**
+     * without time
+     * @param date
+     * @returns {string}
+     */
+    static getGermanDateTimeNoSeconds (date) {
+        return moment(date).format('DD.MM.YYYY H:mm');
+    }
+
     static getToday () {
         return moment().format('YYYY-MM-DD');
     }

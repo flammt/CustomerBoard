@@ -4,7 +4,8 @@
             <PanelHeader><router-link :to="'/browseAccounts/account/'+model.id">{{accountCaption}}</router-link></PanelHeader>
             <PanelHeader>{{model.type_name}}</PanelHeader>
             <PanelHeader>mit {{model.contact_lastname}}, {{model.contact_firstname}}</PanelHeader>
-            <PanelHeader>am {{createdDate}}</PanelHeader>
+            <PanelHeader>am {{communicationDate}}</PanelHeader>
+            <PanelHeaderGray>[{{createdDate}}]</PanelHeaderGray>
             <input style="margin:10px 0 10px 0" type="date" :value="nextContactDate" @change="dateChanged($event.target.value)" @blur="focusLost" @keydown="keyPressed($event.target, $event.keyCode)">
         </div>
         <div style="display:flex;justify-content: space-evenly">
@@ -16,6 +17,7 @@
 
 <script>
     import PanelHeader from "./bricks/PanelHeader";
+    import PanelHeaderGray from "./bricks/PanelHeaderGray";
     import DateFormat from "../DateFormat";
     import TextRow from "./bricks/TextRow";
     import Utils from "../Utils";
@@ -25,7 +27,8 @@
         name: "NextContact",
         components: {
             TextRow,
-            PanelHeader
+            PanelHeader,
+            PanelHeaderGray
         },
         props: {
             model: null,
@@ -60,8 +63,11 @@
             nextContactDate () {
                 return DateFormat.cutTime(this.model.next_contact)
             },
+            communicationDate () {
+                return DateFormat.getGermanDate(this.model.communication_date)
+            },
             createdDate () {
-                return DateFormat.getGermanDateTime(this.model.created_at)
+                return DateFormat.getGermanDateTimeNoSeconds(this.model.created_at)
             },
             accountCaption () {
                 return Utils.notEmptyConcatReplace([this.model.name1, ' ', this.model.street, ' ', this.model.country_code, ' ', this.model.zip, ' ', this.model.town],
