@@ -1,4 +1,4 @@
-# Kontakt
+# Customer Board
 
 ## Installation
 
