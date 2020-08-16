@@ -14,11 +14,11 @@ class AddressTypesSeeder extends Seeder
     {
         $now = \Carbon\Carbon::now();
         DB::table('address_types')->insert([
-        [
-            'name' =>'Hauptaddresse',
-            'created_at' => $now,
-            'updated_at' => $now,
-        ],
+//        [
+//            'name' =>'Hauptaddresse',
+//            'created_at' => $now,
+//            'updated_at' => $now,
+//        ],
         [
             'name' =>'Zweigstelle',
             'created_at' => $now,
