@@ -2,6 +2,7 @@
 
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Log;
 
 class GermanCompaniesSeeder extends Seeder
 {
@@ -17,7 +18,7 @@ class GermanCompaniesSeeder extends Seeder
         foreach ($lines as $line) {
             if (empty($line)) {}
             elseif ($this->startsWith($line, '#')) {}
-            elseif ($line === 'Mitarbeiter') {}
+            elseif ($this->startsWith($line, 'Mitarbeiter')) {}
             elseif (is_numeric(trim(preg_replace('/\s\s+/', ' ', $line)))) {}
             elseif ($this->startsWith($line, 'Logo') || $line === 'kein Logo') {}
             else {
@@ -49,10 +50,15 @@ class GermanCompaniesSeeder extends Seeder
         $i = 0;
         while ($i < sizeof($companies) -1) {
             $name = $companies[$i++];
+            Log::info($name);
             $street = $companies[$i++];
+            Log::info($street);
             $url = $companies[$i++];
+            Log::info($url);
             $plz = substr($companies[$i], 0, 5);
+            Log::info($plz);
             $town = substr($companies[$i], 6, strlen($companies[$i++])-5);
+            Log::info($town);
             $account = new \App\Model\Account();
             $account->name = $name;
             $account->sector_id = rand(1, 5);
