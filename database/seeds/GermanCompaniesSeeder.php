@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 
 class GermanCompaniesSeeder extends Seeder
@@ -25,13 +26,22 @@ class GermanCompaniesSeeder extends Seeder
         }
 
         $now = \Carbon\Carbon::now();
-        $sector = new \App\Model\Sector();
-        $sector->name = 'unknown';
-        $sector->save();
         DB::table('account_levels')->insert([
             [
                 'level' => '1',
-                'description' => 'level 1',
+                'description' => 'Interessiert',
+                'created_at' => $now,
+                'updated_at' => $now,
+            ],
+            [
+                'level' => '2',
+                'description' => 'Teilweise Bindung',
+                'created_at' => $now,
+                'updated_at' => $now,
+            ],
+            [
+                'level' => '3',
+                'description' => 'Hauptkunde',
                 'created_at' => $now,
                 'updated_at' => $now,
             ],
@@ -43,6 +53,17 @@ class GermanCompaniesSeeder extends Seeder
             $url = $companies[$i++];
             $plz = substr($companies[$i], 0, 5);
             $town = substr($companies[$i], 6, strlen($companies[$i++])-5);
+            $account = new \App\Model\Account();
+            $account->name = $name;
+            $account->sector_id = rand(1, 5);
+            $account->verbotskunde = false;
+            $account->account_manager_id = rand(1, 4);
+            $account->account_level_id = rand(1, 3);
+            $account->mnemonic = substr($name, 0, 3);
+            $future = $now->copy()->addDays(rand(1, 90))->setTime(rand(8, 16), [0, 30][rand(0, 1)]);
+            $account->next_contact = $future;
+            $account->save();
+            // Hauptadresse
             $address = new \App\Model\Address();
             $address->name1 = $name;
             $address->street = $street;
@@ -51,16 +72,17 @@ class GermanCompaniesSeeder extends Seeder
             $address->country_code = 'D';
             $address->type_id = 1;
             $address->save();
-            $account = new \App\Model\Account();
-            $account->name = $name;
-            $account->sector_id = 1;
-            $account->verbotskunde = false;
-            $account->account_manager_id = 1;
-            $account->account_level_id = 1;
-            $account->mnemonic = substr($name, 0, 3);
-            $account->save();
             $account->addresses()->attach($address);
-            //$this->command->info($name.' '.$address.' '.$url.' '.$plz.' '.$town);
+            // Weitere
+            $address = new \App\Model\Address();
+            $address->name1 = $name;
+            $address->street = $street;
+            $address->zip = $plz;
+            $address->town = $town;
+            $address->country_code = 'D';
+            $address->type_id = rand(2, 3);
+            $address->save();
+            $account->addresses()->attach($address);
         }
     }
 

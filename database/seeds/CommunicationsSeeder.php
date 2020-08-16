@@ -30,23 +30,38 @@ class CommunicationsSeeder extends Seeder
           "Kartiert wurde der Nunatak bei der Fünften Französischen Antarktisexpedition (1908–1910) unter der Leitung des Polarforschers Jean-Baptiste Charcot. Der weitere Benennungshintergrund ist unbekannt. Möglicher Namensgeber ist ein Sponsor der Forschungsreise.",
           "Die Figur des Richard Ginelli taucht erstmals in dem Roman Der Fluch auf, in dem er auch eine tragende Rolle spielt.",
           "Das Dorf liegt am nordöstlichen Rand des Großen Kaukasus knapp 10 km Luftlinie südsüdöstlich des Zentrums Republikhauptstadt Machatschkala und etwa 4 km von der Küste des Kaspischen Meeres entfernt. Es ist der Verwaltung des Leninski rajon, eines der drei Stadtbezirke von Machatschkala, unterstellt.",
+            "Wo ist das verdammte Geld, Lebowski ? Wo ist das verdammte Geld, du Drecksack?",
+            "Ohne Handeln sind die besten Absichten in der Welt nichts weiter als das: Absichten.",
+            "Die einzige Sache, die zwischen dir und deinem Ziel steht, sind die Bullshit Ausreden, die du dir ständig selbst erzählst.",
+            "Die Tatsache, dass auf Euren Waffen klar und deutlich 'Replica' steht, und auf meiner 'Desert Eagle 0,50' sollte euch zu denken geben.",
+            "Gerne der Zeiten gedenk' ich, da alle Glieder gelenkig - bis auf eins. Doch die Zeiten sind vorüber, steif geworden alle Glieder - bis auf eins.",
+            "Weisheit stellt sich nicht immer mit dem Alter ein. Manchmal kommt auch das Alter ganz allein.",
+            "Geliebt wirst du einzig, wo du schwach dich zeigen darfst, ohne Stärke zu provozieren.",
+            "Stärke wächst nicht aus körperlicher Kraft - vielmehr aus unbeugsamen Willen.",
+            "Man will nicht nur glücklich sein, sondern glücklicher als die anderen. Und das ist deshalb so schwer, weil wir die anderen für glücklicher halten, als sie sind.",
+            "Mut ist, wenn man Todesangst hat, aber sich trotzdem in den Sattel schwingt.",
+            "Die Frau kontrolliert ihren Sex, weil sie für Sex all das bekommt, was ihr noch wichtiger ist als Sex.",
+            "Wer lachen kann, dort wo er hätte heulen können, bekommt wieder Lust zum Leben.",
         ];
 
         $now = \Carbon\Carbon::now();
         for ($i = 1; $i < 101; $i++) {
-            DB::table('communications')->insert([
-                    [
-                        'date' => \Carbon\Carbon::now()->subDays(rand(1, 31)),
-                        'account_id' => $i,
-                        'contact_id' => rand(1, 3),
-                        'user_id' => rand(1, 4),
-                        'communication_type_id' => rand(1, 4),
-                        'memo' => $sprueche[rand(0, 16)],
-                        'created_at' => $now,
-                        'updated_at' => $now,
-                    ],
-                ]
-            );
+            $max = rand(2, 12);
+            for($j = 1; $j<$max; $j++) {
+                DB::table('communications')->insert([
+                        [
+                            'date' => \Carbon\Carbon::now()->subDays(rand(1, 31)),
+                            'account_id' => $i,
+                            'contact_id' => rand(1, 3),
+                            'user_id' => rand(1, 4),
+                            'communication_type_id' => rand(1, 4),
+                            'memo' => $sprueche[rand(0, 28)],
+                            'created_at' => $now,
+                            'updated_at' => $now,
+                        ],
+                    ]
+                );
+            }
         }
     }
 }

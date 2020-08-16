@@ -14,6 +14,18 @@ class DatabaseSeeder extends Seeder
         $this->call(UsersTableSeeder::class);
         $this->command->info('Users table seeded');
 
+        $this->call(SectorsSeeder::class);
+        $this->command->info('Sectors seeded');
+
+        $this->call(ConnectionTypesSeeder::class);
+        $this->command->info('ConnectionTypes seeded');
+
+        $this->call(RemarkTypesSeeder::class);
+        $this->command->info('RemarkTypes seeded');
+
+        $this->call(AddressTypesSeeder::class);
+        $this->command->info('AddressTypes seeded');
+
         $this->call(GermanCompaniesSeeder::class);
         $this->command->info('German companies seeded');
 
