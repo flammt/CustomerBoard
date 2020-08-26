@@ -138,13 +138,14 @@ class AddressController extends Controller
     public function types () {
         $response = new JsonResponse(Auth::user());
         $types = AddressType::all();
-        $types = $types->filter(function($type) {
-            if ($type->name != 'Hauptadresse') {
-                return $type;
+        $result = [];
+        foreach ($types as $type) {
+            if($type->name != 'Hauptadresse') {
+                $result[] = $type;
             }
-        });
+        }
         $response->status->code = 200;
-        $response->result = $types->toArray();
+        $response->result = $result;
         return response()->json($response);
     }
 
