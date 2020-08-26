@@ -37,6 +37,12 @@ class DatabaseSeeder extends Seeder
 
         $this->call(CommunicationsSeeder::class);
         $this->command->info('Communications seeded');
+
+        $this->call(ConnectionsSeeder::class);
+        $this->command->info('Connections seeded');
+
+        $this->call(RemarksSeeder::class);
+        $this->command->info('Remarks seeded');
     }
 
 

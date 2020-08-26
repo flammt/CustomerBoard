@@ -29,6 +29,11 @@ class ConnectionTypesSeeder extends Seeder
             'created_at' => $now,
             'updated_at' => $now,
         ],
+        [
+            'name' =>'Web',
+            'created_at' => $now,
+            'updated_at' => $now,
+        ],
         ]
         );
     }
