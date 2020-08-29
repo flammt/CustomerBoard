@@ -39,7 +39,8 @@ class AccountController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function byNextContactDateAndUser ($date, $openContacts, $userId = null) {
-        $response = new JsonResponse(Auth::user());
+//        $response = new JsonResponse(Auth::user());
+        $response = new JsonResponse(null);
         $accounts = null;
         $openContacts = $openContacts === 'true';
         $query = "select * from ( ";
@@ -150,7 +151,8 @@ order by a.id, c.created_at desc, c.id desc
      * @return \Illuminate\Http\JsonResponse
      */
     public function update (Request $request, int $id) {
-        $response = new JsonResponse(Auth::user());
+//        $response = new JsonResponse(Auth::user());
+        $response = new JsonResponse(null);
         $account = Account::find($id);
         if (empty($account)) {
             $response->status->code = 400;
@@ -289,7 +291,8 @@ order by a.id, c.created_at desc, c.id desc
      * @return \Illuminate\Http\JsonResponse
      */
     public function store (Request $request) {
-        $response = new JsonResponse(Auth::user());
+//        $response = new JsonResponse(Auth::user());
+        $response = new JsonResponse(null);
         $validator = Validator::make (
             $request->all(), [
                 'name' => 'required',
@@ -370,7 +373,8 @@ order by a.id, c.created_at desc, c.id desc
      * @return \Illuminate\Http\JsonResponse
      */
     public function sectors () {
-        $response = new JsonResponse(Auth::user());
+//        $response = new JsonResponse(Auth::user());
+        $response = new JsonResponse(null);
         $sectors = Sector::all();
         $response->status->code = 200;
         $response->result = (object) $sectors;
@@ -383,7 +387,8 @@ order by a.id, c.created_at desc, c.id desc
      * @return \Illuminate\Http\JsonResponse
      */
     public function levels () {
-        $response = new JsonResponse(Auth::user());
+//        $response = new JsonResponse(Auth::user());
+        $response = new JsonResponse(null);
         $levels = AccountLevel::all();
         $response->status->code = 200;
         $response->result = (object) $levels;
@@ -401,7 +406,8 @@ order by a.id, c.created_at desc, c.id desc
      * @return \Illuminate\Http\JsonResponse
      */
     public function search (string $searchText) {
-        $response = new JsonResponse(Auth::user());
+//        $response = new JsonResponse(Auth::user());
+        $response = new JsonResponse(null);
 //    Prof::prof_flag('parse text');
         $parser = new SearchTextParser($searchText);
         $accounts = null;
@@ -491,7 +497,8 @@ order by a.id, c.created_at desc, c.id desc
      * @return \Illuminate\Http\JsonResponse
      */
     public function searchName (string $name) {
-        $response = new JsonResponse(Auth::user());
+//        $response = new JsonResponse(Auth::user());
+        $response = new JsonResponse(null);
         try {
             $accounts = Account::where('name', 'ilike', '%' . $name . '%')
                 ->take(9)->get();
@@ -512,7 +519,8 @@ order by a.id, c.created_at desc, c.id desc
      */
     public function show(int $id)
     {
-        $response = new JsonResponse(Auth::user());
+//        $response = new JsonResponse(Auth::user());
+        $response = new JsonResponse(null);
         try {
             $account = Account::with(['addresses', 'addresses.connections', 'level', 'sector', 'accountManager' => function(Relation $r) {
                 $r->withTrashed();

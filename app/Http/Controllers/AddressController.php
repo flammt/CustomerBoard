@@ -22,7 +22,7 @@ class AddressController extends Controller
      */
     public function __construct ()
     {
-        $this->middleware('auth');
+//        $this->middleware('auth');
     }
 
     /**
@@ -31,7 +31,8 @@ class AddressController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function update (Request $request) {
-        $response = new JsonResponse(Auth::user());
+//        $response = new JsonResponse(Auth::user());
+        $response = new JsonResponse(null);
         $validator = Validator::make (
             $request->all(), [
                 'id' => 'required',
@@ -80,7 +81,8 @@ class AddressController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function store (Request $request) {
-        $response = new JsonResponse(Auth::user());
+//        $response = new JsonResponse(Auth::user());
+        $response = new JsonResponse(null);
         $validator = Validator::make (
             $request->all(), [
                 'accountId' => 'required',
@@ -136,7 +138,8 @@ class AddressController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function types () {
-        $response = new JsonResponse(Auth::user());
+//        $response = new JsonResponse(Auth::user());
+        $response = new JsonResponse(null);
         $types = AddressType::all();
         $types = $types->filter(function($type) {
             if ($type->name != 'Hauptadresse') {
@@ -149,7 +152,8 @@ class AddressController extends Controller
     }
 
     public function typeAdd ($name) {
-        $response = new JsonResponse(Auth::user());
+//        $response = new JsonResponse(Auth::user());
+        $response = new JsonResponse(null);
         $type = AddressType::where('name', $name)->first();
         if (empty($type)) {
             $type = new AddressType();
@@ -167,7 +171,8 @@ class AddressController extends Controller
     }
 
     public function typeRemove ($id) {
-        $response = new JsonResponse(Auth::user());
+//        $response = new JsonResponse(Auth::user());
+        $response = new JsonResponse(null);
         $type = AddressType::find($id);
         if (!empty($type)) {
             try {

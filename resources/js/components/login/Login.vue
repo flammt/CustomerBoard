@@ -3,11 +3,11 @@
         <div>
             <div class="form-row" ref="x">
                 <h5 style="align-self: center"><label for="email">Email</label></h5>
-                <h5 style="justify-self: right;width:100%;"><input style="width:100%" id="email" name="email" type="text" :value="model.email" @input="typedEmail($event.target.value)"></h5>
+                <h5 style="justify-self: right;width:100%;"><input disabled style="width:100%" id="email" name="email" type="text" :value="model.email" @input="typedEmail($event.target.value)"></h5>
             </div>
             <div class="form-row" ref="x">
                 <h5 style="align-self: center"><label for="password">Passwort</label></h5>
-                <h5 style="justify-self: right;width:100%;"><input style="width:100%" id="password" name="password" type="password" :value="model.password" @input="typedPassword($event.target.value)"></h5>
+                <h5 style="justify-self: right;width:100%;"><input disabled style="width:100%" id="password" name="password" type="password" :value="model.password" @input="typedPassword($event.target.value)"></h5>
             </div>
         </div>
         <div style="text-align: right">

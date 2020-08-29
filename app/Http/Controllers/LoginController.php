@@ -11,6 +11,7 @@ class LoginController extends Controller
 {
 
     public function authenticate (Request $request) {
+        return redirect('/');
         $credentials = $request->only('email', 'password');
         Log::debug('Anmeldungsversuch: ', [$credentials['email']]);
         if (Auth::attempt($credentials)) {
@@ -24,7 +25,7 @@ class LoginController extends Controller
     }
 
     public function logout (Request $request) {
-        Auth::logout();
+//        Auth::logout();
         return redirect('/login');
     }
 }

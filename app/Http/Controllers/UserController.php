@@ -19,11 +19,12 @@ class UserController extends Controller
      */
     public function __construct ()
     {
-        $this->middleware('auth');
+//        $this->middleware('auth');
     }
 
     public function getAuthUser () {
-        $response = new JsonResponse(Auth::user());
+//        $response = new JsonResponse(Auth::user());
+        $response = new JsonResponse(null);
         $response->status->code = 200;
         $response->result = (object) Auth::user();
         return response()->json($response);
@@ -34,7 +35,8 @@ class UserController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function search (string $searchText) {
-        $response = new JsonResponse(Auth::user());
+//        $response = new JsonResponse(Auth::user());
+        $response = new JsonResponse(null);
         $users = User::withTrashed()->where(function($query) use ($searchText) {
             return $query->orWhere('firstname', 'ilike', '%'.$searchText.'%')
                 ->orWhere('lastname', 'ilike', '%'.$searchText.'%')
@@ -55,7 +57,8 @@ class UserController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function searchName (string $name) {
-        $response = new JsonResponse(Auth::user());
+//        $response = new JsonResponse(Auth::user());
+        $response = new JsonResponse(null);
         try {
             $users = User::where('lastname', 'ilike', '%' . $name . '%')
                 ->orWhere('firstname', 'ilike', '%'.$name.'%')
@@ -76,7 +79,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $response = new JsonResponse(Auth::user());
+//        $response = new JsonResponse(Auth::user());
+        $response = new JsonResponse(null);
         $users = User::withTrashed()->all();
         $response->status->code = 200;
         $response->result = $users;
@@ -92,7 +96,8 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $response = new JsonResponse(Auth::user());
+//        $response = new JsonResponse(Auth::user());
+        $response = new JsonResponse(null);
         Log::debug('Store user');
         // TODO check permissions
         $validator = Validator::make(
@@ -142,7 +147,8 @@ class UserController extends Controller
      */
     public function show(int $id)
     {
-        $response = new JsonResponse(Auth::user());
+//        $response = new JsonResponse(Auth::user());
+        $response = new JsonResponse(null);
         $user = User::withTrashed()->find($id);
         if (empty($user)) {
             $response->status->code = 400;
@@ -169,7 +175,8 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $response = new JsonResponse(Auth::user());
+//        $response = new JsonResponse(Auth::user());
+        $response = new JsonResponse(null);
         Log::debug('Update user');
         // TODO check permissions
         $validator = Validator::make(
@@ -229,7 +236,8 @@ class UserController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function chpwd (Request $request) {
-        $response = new JsonResponse(Auth::user());
+//        $response = new JsonResponse(Auth::user());
+        $response = new JsonResponse(null);
         $validator = Validator::make(
             $request->all(),
             [

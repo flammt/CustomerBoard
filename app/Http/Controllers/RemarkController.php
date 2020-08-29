@@ -19,7 +19,8 @@ class RemarkController
 {
 
     public function update (Request $request) {
-        $response = new JsonResponse(Auth::user());
+//        $response = new JsonResponse(Auth::user());
+        $response = new JsonResponse(null);
         $validator = Validator::make (
             $request->all(), [
             'id' => 'required',
@@ -60,7 +61,8 @@ class RemarkController
     }
 
     public function delete ($id) {
-        $response = new JsonResponse(Auth::user());
+//        $response = new JsonResponse(Auth::user());
+        $response = new JsonResponse(null);
         $remark = Remark::find($id);
         if(empty($remark)) {
             $response->status->code = 400;
@@ -83,7 +85,8 @@ class RemarkController
      */
     public function storeToContact (Request $request)
     {
-        $response = new JsonResponse(Auth::user());
+//        $response = new JsonResponse(Auth::user());
+        $response = new JsonResponse(null);
         $validator = Validator::make (
             $request->all(), [
             'parentId' => 'required',
@@ -129,7 +132,8 @@ class RemarkController
      */
     public function storeToAddress (Request $request)
     {
-        $response = new JsonResponse(Auth::user());
+//        $response = new JsonResponse(Auth::user());
+        $response = new JsonResponse(null);
         $validator = Validator::make (
             $request->all(), [
             'parentId' => 'required',
@@ -174,7 +178,8 @@ class RemarkController
      * @return \Illuminate\Http\JsonResponse
      */
     public function types () {
-        $response = new JsonResponse(Auth::user());
+//        $response = new JsonResponse(Auth::user());
+        $response = new JsonResponse(null);
         $types = RemarkType::all();
         $response->status->code = 200;
         $response->result = (object) $types;

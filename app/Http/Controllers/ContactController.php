@@ -18,7 +18,7 @@ class ContactController extends Controller
      */
     public function __construct ()
     {
-        $this->middleware('auth');
+//        $this->middleware('auth');
     }
 
     /**
@@ -27,7 +27,8 @@ class ContactController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function delete ($id) {
-        $response = new JsonResponse(Auth::user());
+//        $response = new JsonResponse(Auth::user());
+        $response = new JsonResponse(null);
         $contact = Contact::find($id);
         if (!$contact) {
             $response->status->code = 400;
@@ -49,7 +50,8 @@ class ContactController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function store (Request $request) {
-        $response = new JsonResponse(Auth::user());
+//        $response = new JsonResponse(Auth::user());
+        $response = new JsonResponse(null);
         $validator = Validator::make(
             $request->all(), [
                 'accountId' => 'required',
@@ -88,7 +90,8 @@ class ContactController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function allInAccount (int $id) {
-        $response = new JsonResponse(Auth::user());
+//        $response = new JsonResponse(Auth::user());
+        $response = new JsonResponse(null);
         try {
             $contacts = Contact::with('account')
                 ->whereHas('account', function(Builder $query) use ($id) {
@@ -111,7 +114,8 @@ class ContactController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function searchInAccountWithoutAdhoc (int $id, $name = '') {
-        $response = new JsonResponse(Auth::user());
+//        $response = new JsonResponse(Auth::user());
+        $response = new JsonResponse(null);
         try {
             $contacts = Contact::with('account')
                 ->whereHas('account', function(Builder $query) use ($id) {
@@ -135,7 +139,8 @@ class ContactController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function searchInAccount (int $id, string $name = '') {
-        $response = new JsonResponse(Auth::user());
+//        $response = new JsonResponse(Auth::user());
+        $response = new JsonResponse(null);
         try {
             $contacts = Contact::with('account')
                 ->whereHas('account', function(Builder $query) use ($id) {
@@ -158,7 +163,8 @@ class ContactController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function searchAll (string $name = null) {
-        $response = new JsonResponse(Auth::user());
+//        $response = new JsonResponse(Auth::user());
+        $response = new JsonResponse(null);
         if ($name) {
             try {
                 $contacts = Contact::with('account')

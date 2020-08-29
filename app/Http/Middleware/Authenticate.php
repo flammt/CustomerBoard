@@ -11,6 +11,7 @@ class Authenticate extends Middleware
 
     protected function unauthenticated($request, array $guards)
     {
+        return $this->redirectTo($request);
         throw new AuthenticationException(
             'Unauthenticated.', $guards, $this->redirectTo($request)
         );
@@ -24,6 +25,7 @@ class Authenticate extends Middleware
      */
     protected function redirectTo($request)
     {
+        return null;
         if (! $request->expectsJson()) {
             return route('login');
         }

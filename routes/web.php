@@ -13,14 +13,14 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('login/', function () {
-    return view('login');
-})->name('login');
+//Route::get('login/', function () {
+//    return view('login');
+//})->name('login');
 
 Route::get('/', 'FrontDoorController@index');
 
-Route::post('login', 'LoginController@authenticate');
-Route::get('logout', 'LoginController@logout');
+//Route::post('login', 'LoginController@authenticate');
+//Route::get('logout', 'LoginController@logout');
 
 Route::put('json/user/chpwd', 'UserController@chpwd');
 

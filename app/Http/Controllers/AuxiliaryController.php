@@ -26,7 +26,7 @@ class AuxiliaryController extends Controller
      */
     public function __construct ()
     {
-        $this->middleware('auth');
+//        $this->middleware('auth');
     }
 
     /**
@@ -34,7 +34,8 @@ class AuxiliaryController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function list () {
-        $response = new JsonResponse(Auth::user());
+//        $response = new JsonResponse(Auth::user());
+        $response = new JsonResponse(null);
         $response->status = 200;
         $response->result = ['Addresstyp', 'Gesprächsart', 'Branche'];
         return response()->json($response);
@@ -46,7 +47,8 @@ class AuxiliaryController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function addressType ($id) {
-        $response = new JsonResponse(Auth::user());
+//        $response = new JsonResponse(Auth::user());
+        $response = new JsonResponse(null);
         $at = AddressType::find($id);
         $response->status->code = 200;
         $response->result = (object)$at;
@@ -58,7 +60,8 @@ class AuxiliaryController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function addressTypes () {
-        $response = new JsonResponse(Auth::user());
+//        $response = new JsonResponse(Auth::user());
+        $response = new JsonResponse(null);
         $at = AddressType::all();
         $response->status->code = 200;
         $response->result = (object)$at;
@@ -71,7 +74,8 @@ class AuxiliaryController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function newAddressType (Request $request) {
-        $response = new JsonResponse(Auth::user());
+//        $response = new JsonResponse(Auth::user());
+        $response = new JsonResponse(null);
         $validator = Validator::make (
             $request->all(), [
             'name' => 'required',
@@ -101,7 +105,8 @@ class AuxiliaryController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function updateAddressType (Request $request) {
-        $response = new JsonResponse(Auth::user());
+//        $response = new JsonResponse(Auth::user());
+        $response = new JsonResponse(null);
         $validator = Validator::make (
             $request->all(), [
             'id' => 'required',
@@ -129,7 +134,8 @@ class AuxiliaryController extends Controller
 
     // not used
     public function deleteAddressType ($id) {
-        $response = new JsonResponse(Auth::user());
+//        $response = new JsonResponse(Auth::user());
+        $response = new JsonResponse(null);
         $at = AddressType::find($id);
         if (empty($at)) {
             $response->status->code = 400;
@@ -156,7 +162,8 @@ class AuxiliaryController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function communicationType ($id) {
-        $response = new JsonResponse(Auth::user());
+//        $response = new JsonResponse(Auth::user());
+        $response = new JsonResponse(null);
         $type = CommunicationType::find($id);
         $response->status->code = 200;
         $response->result = (object)$type;
@@ -168,7 +175,8 @@ class AuxiliaryController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function communicationTypes () {
-        $response = new JsonResponse(Auth::user());
+//        $response = new JsonResponse(Auth::user());
+        $response = new JsonResponse(null);
         $type = CommunicationType::all();
         $response->status->code = 200;
         $response->result = (object)$type;
@@ -181,7 +189,8 @@ class AuxiliaryController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function newCommunicationType (Request $request) {
-        $response = new JsonResponse(Auth::user());
+//        $response = new JsonResponse(Auth::user());
+        $response = new JsonResponse(null);
         $validator = Validator::make (
             $request->all(), [
             'name' => 'required',
@@ -212,7 +221,8 @@ class AuxiliaryController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function updateCommunicationType (Request $request) {
-        $response = new JsonResponse(Auth::user());
+//        $response = new JsonResponse(Auth::user());
+        $response = new JsonResponse(null);
         $validator = Validator::make (
             $request->all(), [
             'id' => 'required',
@@ -240,7 +250,8 @@ class AuxiliaryController extends Controller
 
     // not used
     public function deleteCommunicationType ($id) {
-        $response = new JsonResponse(Auth::user());
+//        $response = new JsonResponse(Auth::user());
+        $response = new JsonResponse(null);
         $type = CommunicationType::find($id);
         if (empty($type)) {
             $response->status->code = 400;
@@ -267,7 +278,8 @@ class AuxiliaryController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function sector ($id) {
-        $response = new JsonResponse(Auth::user());
+//        $response = new JsonResponse(Auth::user());
+        $response = new JsonResponse(null);
         $sector = Sector::find($id);
         $response->status->code = 200;
         $response->result = (object)$sector;
@@ -279,7 +291,8 @@ class AuxiliaryController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function sectors () {
-        $response = new JsonResponse(Auth::user());
+//        $response = new JsonResponse(Auth::user());
+        $response = new JsonResponse(null);
         $sector = Sector::all();
         $response->status->code = 200;
         $response->result = (object)$sector;
@@ -292,7 +305,8 @@ class AuxiliaryController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function newSector (Request $request) {
-        $response = new JsonResponse(Auth::user());
+//        $response = new JsonResponse(Auth::user());
+        $response = new JsonResponse(null);
         $validator = Validator::make (
             $request->all(), [
             'name' => 'required',
@@ -322,7 +336,8 @@ class AuxiliaryController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function updateSector (Request $request) {
-        $response = new JsonResponse(Auth::user());
+//        $response = new JsonResponse(Auth::user());
+        $response = new JsonResponse(null);
         $validator = Validator::make (
             $request->all(), [
             'id' => 'required',
@@ -356,7 +371,8 @@ class AuxiliaryController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function connectionType ($id) {
-        $response = new JsonResponse(Auth::user());
+//        $response = new JsonResponse(Auth::user());
+        $response = new JsonResponse(null);
         $connection = Connectiontype::find($id);
         $response->status->code = 200;
         $response->result = (object)$connection;
@@ -368,7 +384,8 @@ class AuxiliaryController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function connectionTypes () {
-        $response = new JsonResponse(Auth::user());
+//        $response = new JsonResponse(Auth::user());
+        $response = new JsonResponse(null);
         $connection = Connectiontype::all();
         $response->status->code = 200;
         $response->result = (object)$connection;
@@ -381,7 +398,8 @@ class AuxiliaryController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function newConnectionType (Request $request) {
-        $response = new JsonResponse(Auth::user());
+//        $response = new JsonResponse(Auth::user());
+        $response = new JsonResponse(null);
         $validator = Validator::make (
             $request->all(), [
             'name' => 'required',
@@ -411,7 +429,8 @@ class AuxiliaryController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function updateConnectionType (Request $request) {
-        $response = new JsonResponse(Auth::user());
+//        $response = new JsonResponse(Auth::user());
+        $response = new JsonResponse(null);
         $validator = Validator::make (
             $request->all(), [
             'id' => 'required',
@@ -445,7 +464,8 @@ class AuxiliaryController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function remarkType ($id) {
-        $response = new JsonResponse(Auth::user());
+//        $response = new JsonResponse(Auth::user());
+        $response = new JsonResponse(null);
         $remark = RemarkType::find($id);
         $response->status->code = 200;
         $response->result = (object)$remark;
@@ -457,7 +477,8 @@ class AuxiliaryController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function remarkTypes () {
-        $response = new JsonResponse(Auth::user());
+//        $response = new JsonResponse(Auth::user());
+        $response = new JsonResponse(null);
         $remark = RemarkType::all();
         $response->status->code = 200;
         $response->result = (object)$remark;
@@ -470,7 +491,8 @@ class AuxiliaryController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function newRemarkType (Request $request) {
-        $response = new JsonResponse(Auth::user());
+//        $response = new JsonResponse(Auth::user());
+        $response = new JsonResponse(null);
         $validator = Validator::make (
             $request->all(), [
             'name' => 'required',
@@ -500,7 +522,8 @@ class AuxiliaryController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function updateRemarkType (Request $request) {
-        $response = new JsonResponse(Auth::user());
+//        $response = new JsonResponse(Auth::user());
+        $response = new JsonResponse(null);
         $validator = Validator::make (
             $request->all(), [
             'id' => 'required',

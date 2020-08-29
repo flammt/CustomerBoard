@@ -21,11 +21,12 @@ class CommunicationController extends Controller
      */
     public function __construct ()
     {
-        $this->middleware('auth');
+//        $this->middleware('auth');
     }
 
     public function store (Request $request) {
-        $response = new JsonResponse(Auth::user());
+//        $response = new JsonResponse(Auth::user());
+        $response = new JsonResponse(null);
         Log::debug('Store Communication');
         $validator = Validator::make(
             $request->all(),
@@ -97,7 +98,8 @@ class CommunicationController extends Controller
     }
 
     public function update (Request $request) {
-        $response = new JsonResponse(Auth::user());
+//        $response = new JsonResponse(Auth::user());
+        $response = new JsonResponse(null);
         $communication = Communication::find($request->input('id'));
         if (empty($communication)) {
             $response->status->code = 400;
@@ -148,7 +150,8 @@ class CommunicationController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function types () {
-        $response = new JsonResponse(Auth::user());
+//        $response = new JsonResponse(Auth::user());
+        $response = new JsonResponse(null);
         $types = CommunicationType::all();
         $response->status->code = 200;
         $response->result = (object) $types;
